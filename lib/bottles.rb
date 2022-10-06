@@ -1,50 +1,26 @@
 require 'active_support/inflector'
+require_relative 'bottle_number'
 
 class Bottles
 
-	def verse(number)
-		return zero if number == 0
-	  return one if number == 1
-	  return two if number == 2
-		default(number)
+	def song
+		verses(99, 0)
 	end
 
 	def verses(finish, start)
 		(finish).downto(start).map {|verse_number| verse(verse_number) }.join("\n")
 	end
 	
-	def song
-		verses(99, 0)
-	end
-	
-	private
-	
-	def zero
+	def verse(number)
+		bottle_num = BottleNumber.new(number)
+		next_bottle_num = BottleNumber.new(bottle_num.successor)
+		
 		<<~TEXT
-		No more bottles of beer on the wall, no more bottles of beer.
-		Go to the store and buy some more, 99 bottles of beer on the wall.
+		#{bottle_num.to_s.capitalize} of beer on the wall, \
+		#{bottle_num} of beer.
+		#{bottle_num.action}, \
+		#{next_bottle_num} of beer on the wall.
 		TEXT
 	end
-	
-	def one
-		<<~TEXT
-		1 bottle of beer on the wall, 1 bottle of beer.
-		Take it down and pass it around, no more bottles of beer on the wall.
-		TEXT
-	end
-	
-	def two
-		<<~TEXT
-		2 bottles of beer on the wall, 2 bottles of beer.
-		Take one down and pass it around, 1 bottle of beer on the wall.
-		TEXT
-	end
-	
-	def default(number)
-		<<~TEXT
-		#{number} bottles of beer on the wall, #{number} bottles of beer.
-		Take one down and pass it around, #{number - 1} bottles of beer on the wall.
-		TEXT
-	end
-	
 end
+

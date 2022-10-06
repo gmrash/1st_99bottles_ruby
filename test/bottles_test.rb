@@ -42,6 +42,15 @@ Go to the store and buy some more, 99 bottles of beer on the wall.
     VERSE
     assert_equal expected, ::Bottles.new.verse(0)
   end
+  
+    def test_one_six_pack
+    skip
+    expected = <<-VERSE
+1 six-pack of beer on the wall, 1 six-pack of beer.
+Take one down and pass it around, 5 bottles of beer on the wall.
+    VERSE
+    assert_equal expected, ::Bottles.new.verse(6)
+  end
 
   def test_a_couple_verses
     expected = <<-VERSES
